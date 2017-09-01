@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html{
+            font-size: 85.33px;
+        }
+
+        @media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+            html{
+                font-size: 100px;
+            }
+        }
+        @media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+            html{
+                font-size: 110.9333px;
+            }
+        }
+        div{
+            color: #222222;
+            line-height: 1.5;
+        }
+        p{
+            color: #222222;
+            font-size: 0.17rem;
+            margin-bottom: 0.17rem;
+            line-height: 1.5;
+        }
+        img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>   
+        <p>
+
+            PS: 也可以直接使用实际的device-width：如 device-width : 375px在原有页面的基础上，再针对相应的屏幕大小单独写样式做适配。3、REM布局REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。REM与PX的换算可以查看网址： https://offroadcode.com/prototypesrem-calculator/假设，html我们设置font-size:12px; 也就是说12px相对于1rem，那么18px也就是 18/12 = 1.5rem。那么我们以320px的设计布局为基准，将html设置为font-size:100px，即100px = 1rem。(设置100px是为了方便计算)么可以将大部分px单位除以100就可以直接改成rem单位了。REM如何做响应式布局？    
+        </p>
+        <p>
+            PS: 也可以直接使用实际的device-width：如 device-width : 375px在原有页面的基础上，再针对相应的屏幕大小单独写样式做适配。3、REM布局REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。REM与PX的换算可以查看网址： https://offroadcode.com/prototypesrem-calculator/假设，html我们设置font-size:12px; 也就是说12px相对于1rem，那么18px也就是 18/12 = 1.5rem。那么我们以320px的设计布局为基准，将html设置为font-size:100px，即100px = 1rem。(设置100px是为了方便计算)么可以将大部分px单位除以100就可以直接改成rem单位了。REM如何做响应式布局？    </p>
+            <p>
+                PS: 也可以直接使用实际的device-width：如 device-width : 375px在原有页面的基础上，再针对相应的屏幕大小单独写样式做适配。3、REM布局REM是CSS3新增的一种单位，并且移动端的支持度很高，android2.x+，ios5+ 持。REM是相对于dom结构的根元素来设置大小，也就是html这个元素。相较于em单位，rem使用上更容易理解及运用。REM与PX的换算可以查看网址： https://offroadcode.com/prototypesrem-calculator/假设，html我们设置font-size:12px; 也就是说12px相对于1rem，那么18px也就是 18/12 = 1.5rem。那么我们以320px的设计布局为基准，将html设置为font-size:100px，即100px = 1rem。(设置100px是为了方便计算)么可以将大部分px单位除以100就可以直接改成rem单位了。REM如何做响应式布局？    </p>
+            </div>
+        </body>
+        </html>
