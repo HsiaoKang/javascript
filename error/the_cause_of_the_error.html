@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>出错的原因</title>
+</head>
+<body>
+
+
+<script>
+    // 报错，因为oldCalue没有声明
+    var newValue = oldValue;
+    // 不报错，因为是去查询了window下的oldValue，返回undefined
+    var newValue = window.oldValue;
+
+//    所以：通过一个对象去获取一个未知的变量，在语法层面上是不会报错的。
+</script>
+</body>
+</html>

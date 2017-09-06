@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BOM 中 screen对象</title>
+</head>
+<body>
+<p>screen对象多数为只读属性，一般用的较少</p>
+<p>主要有确定设备屏幕的宽高，除去系统部件（如状态栏、任务栏）外的可用区域大小</p>
+<script>
+    (function () {
+      let screen = window.screen
+        console.log(screen)
+    }())
+</script>
+</body>
+</html>

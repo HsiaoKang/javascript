@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BOM中的ewindow对象</title>
+</head>
+<body>
+<h1>全局作用域</h1>
+<p>在全局作用域中声明的<strong>变量、函数</strong>都会成为window的属性和方法</p>
+<p>在全局作用域中定义函数和变量与直接在window上定义变量和方法的区别是不能通过<strong>delete</strong>来删除</p>
+<p>在全局作用域下，直接将一个没有定义的变量赋给另一个变量，将会抛出错误；但是通过window.去赋值则不会抛出错误，而是赋值为undefined</p>
+<h1>窗口关系及框架</h1>
+<p>框架指的是frame，每个frame有自己的window</p>
+<p>可通过window或者top来访问</p>
+<p>top指向最外层框架，parent指向父级，self指向自己的widow</p>
+<h1>窗口位置</h1>
+<p>screenLeft/screenTop,火狐：screenX/screenY</p>
+<p>兼容代码</p>
+<pre>
+    var leftPos = (typeof window.screenLeft == "number") ?
+        window.screenLeft : window.screenX;
+    var topPos = (typeof window.screenTop == "number") ?
+        window.screenTop : window.screenY;
+</pre>
+<p>ie/opera中screenTop/screenY表示的是页面到屏幕边缘的距离，中间可能会有浏览器的工具栏</p>
+<p>Firefox,Safari,Chrome中screenTop/screenY表示的是浏览器到屏幕边缘的距离</p>
+<p>moveTo/moveBy,移动浏览器位置，一般被禁用了的</p>
+<h1>窗口大小</h1>
+<p>innerHeight/innerWidth浏览器内容区域,outerHeight/outerWidth浏览器自身的宽高,</p>
+<p>innerHeight/innerWidth等于DOM的ducument.ducumentElement.clientHeight/...Width</p>
+<p>但在火狐55.0.3中测试，非全屏下outerWidth大于了我屏幕的宽度（多16)，全屏状态下等于屏幕的宽度</p>
+<h1>导航和打开窗口</h1>
+<h1>间歇调用和超时调用</h1>
+<h1>系统对话框</h1>
+
+
+<script>
+    var elm = window.document
+    console.log(elm)
+</script>
+</body>
+</html>
