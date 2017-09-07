@@ -32,12 +32,39 @@
 <p>innerHeight/innerWidth浏览器内容区域,outerHeight/outerWidth浏览器自身的宽高,</p>
 <p>innerHeight/innerWidth等于DOM的ducument.ducumentElement.clientHeight/...Width</p>
 <p>但在火狐55.0.3中测试，非全屏下outerWidth大于了我屏幕的宽度（多16)，全屏状态下等于屏幕的宽度</p>
+<p>书中兼容代码</p>
+<pre>
+    var pageWidth = window.innerWidth,
+    pageHeight = window.innerHeight;
+    if (typeof pageWidth != "number"){
+        if (document.compatMode == "CSS1Compat"){
+            pageWidth = document.documentElement.clientWidth;
+            pageHeight = document.documentElement.clientHeight;
+            }
+        else {
+            pageWidth = document.body.clientWidth;
+            pageHeight = document.body.clientHeight;
+        }
+    }
+    console.log(pageWidth,pageHeight)
+</pre>
+<p>实际上两个方法获取的不一样，在Chrom、火狐、IE（6-11）中，通过<strong>document.documentElement.clientWidth/...Height</strong>用来做inner...的替代方案比较好，在有滚动条的情况下，加上16px的滚动条，四舍五入后与inner...的值是相同的</p>
+<p>resizeTo()/resizeBy()两个方法用于调整浏览器窗口尺寸，一般被禁用</p>
 <h1>导航和打开窗口</h1>
+<p>window.open()方法打开新窗口，四个参数：URL、目标（某个框架/特殊窗口名称）、特性字符串（新窗口的相关设置）、是否取代当前页面</p>
+<p>window.close()关闭窗口（除了通过open打开的窗口外，需要得到用户允许）</p>
+<p>window.closed,是否关闭</p>
+<p>window.opener,新窗口对原始窗口的指针</p>
 <h1>间歇调用和超时调用</h1>
+<p>setTimeout(),两个参数，第一个是包含js代码的字符串（性能损失）或者函数，第二个是等待多少毫秒将代码添加到执行队列中（此时队列中可能有等待执行的代码）</p>
+<p>返回一个id，是执行代码的唯一标识符，通过它来取消执行<strong>clearTimeout()</strong></p>
+<p>setInterval(),间歇调用，大致同上，最好设置一下峰值</p>
+<p>注意：后一个间歇调用可能会在前一个间歇调用执行结束之前启动，避免这种情况，使用setTimeout()来模拟间歇调用时安全的</p>
 <h1>系统对话框</h1>
-
+<p>alert()警告（确认）,confirm()确认（取消，确认）,prompt()提示（输入，确认）</p>
 
 <script>
+
     var elm = window.document
     console.log(elm)
 </script>
