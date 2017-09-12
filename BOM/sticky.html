@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        .wrap{
+            height:10000px;
+            background: #f2f2f2;
+        }
+        .nav{
+            height:60px;
+            width:100%;
+            background: #cccccc;
+            top:0;
+        }
+        .out-container{
+            height: 70000px;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+<div class="out-container">
+    <div class="wrap">
+        <div style="height: 300px;"></div>
+        <div class="nav"></div>
+    </div>
+</div>
+
+<script>
+    (function () {
+        var wrap = document.querySelector('.wrap');
+        var outer = document.querySelector('.out-container');
+
+        var nav = document.querySelector('.nav');
+        console.log(nav)
+
+        window.addEventListener('scroll',function (e) {
+          console.log('wrap scrol',document.body.scrollTop)
+//          if(window.scrollTop>300){
+//              nav.style.position = 'fixed';
+//              nav.style.top = '0'
+//          }
+      },false)
+
+    }())
+</script>
+</body>
+</html>
