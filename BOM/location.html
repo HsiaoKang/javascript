@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>location对象</title>
+</head>
+<body>
+<p>有这几个部分</p>
+<p>protocol 协议</p>
+<p>hostname 域名</p>
+<p>port 端口</p>
+<p>hash 散列</p>
+<p>search search查询字符串</p>
+<p>以上按顺序组成一个完整的url</p>
+<p>href 整个url 和location.toString()一样</p>
+<p>hostname+port = host</p>
+<script>
+    var tab = 'wind';
+
+    (function () {
+        var ss = 123;
+        var obj = {tab:0};
+        var fn = function (ss) {
+            console.log(this.tab);
+        }
+
+        fn(ss)
+        fn.call(obj)
+
+        // 一个url参数获取方法。
+        let urlSearch=function() {
+            var name, value;
+            var str = location.href;
+            var num = str.indexOf("?");
+            str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+
+            // 这是排除掉search部分的 hash（微信中需要）
+            var shaNum = str.indexOf("#");
+            var overNum = str.indexOf("?")
+            var replaceStr = str.substring(shaNum,overNum+1);
+            var newStr = str.replace(replaceStr,"&")
+
+            var arr = newStr.split("&");
+            let _data = {}
+            for (var i = 0; i < arr.length; i++) {
+                num = arr[i].indexOf("=");
+                if (num > 0) {
+                    name = arr[i].substring(0, num);
+                    value = encodeURIComponent(arr[i].substr(num + 1))
+                    _data[name] = value;
+                }
+            }
+            console.log('str', _data)
+
+            return _data
+        }
+    }())
+</script>
+</body>
+</html>
