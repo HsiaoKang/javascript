@@ -13,6 +13,7 @@
 // next方法返回一个对象
 
 // 模拟
+
 var it = makeIterator(['a', 'b']);
 
 it.next() // { value: "a", done: false }
