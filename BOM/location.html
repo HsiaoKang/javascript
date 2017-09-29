@@ -1,60 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>location对象</title>
 </head>
+
 <body>
-<p>有这几个部分</p>
-<p>protocol 协议</p>
-<p>hostname 域名</p>
-<p>port 端口</p>
-<p>hash 散列</p>
-<p>search search查询字符串</p>
-<p>以上按顺序组成一个完整的url</p>
-<p>href 整个url 和location.toString()一样</p>
-<p>hostname+port = host</p>
-<script>
-    var tab = 'wind';
+    <p>有这几个部分</p>
+    <p>protocol 协议</p>
+    <p>hostname 域名</p>
+    <p>port 端口</p>
+    <p>hash 散列</p>
+    <p>search search查询字符串</p>
+    <p>以上按顺序组成一个完整的url</p>
+    <p>href 整个url 和location.toString()一样</p>
+    <p>hostname+port = host</p>
+    <script>
+        var tab = 'wind';
 
-    (function () {
-        var ss = 123;
-        var obj = {tab:0};
-        var fn = function (ss) {
-            console.log(this.tab);
-        }
-
-        fn(ss)
-        fn.call(obj)
-
-        // 一个url参数获取方法。
-        let urlSearch=function() {
-            var name, value;
-            var str = location.href;
-            var num = str.indexOf("?");
-            str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
-
-            // 这是排除掉search部分的 hash（微信中需要）
-            var shaNum = str.indexOf("#");
-            var overNum = str.indexOf("?")
-            var replaceStr = str.substring(shaNum,overNum+1);
-            var newStr = str.replace(replaceStr,"&")
-
-            var arr = newStr.split("&");
-            let _data = {}
-            for (var i = 0; i < arr.length; i++) {
-                num = arr[i].indexOf("=");
-                if (num > 0) {
-                    name = arr[i].substring(0, num);
-                    value = encodeURIComponent(arr[i].substr(num + 1))
-                    _data[name] = value;
-                }
+        (function () {
+            var ss = 123;
+            var obj = { tab: 0 };
+            var fn = function (ss) {
+                // console.log(this.tab);
             }
-            console.log('str', _data)
 
-            return _data
-        }
-    }())
-</script>
+            fn(ss);
+            fn.call(obj);
+
+            // 一个url参数获取方法。
+            let urlSearch1 = function () {
+                var name, value;
+                var str = location.href;
+                var num = str.indexOf("?");
+                str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+
+                // 这是排除掉search部分的 hash（微信中需要）
+                var shaNum = str.indexOf("#");
+                var overNum = str.indexOf("?");
+                var replaceStr = str.substring(shaNum, overNum + 1);
+                var newStr = str.replace(replaceStr, "&");
+
+                var arr = newStr.split("&");
+                let _data = {}
+                for (var i = 0; i < arr.length; i++) {
+                    num = arr[i].indexOf("=");
+                    if (num > 0) {
+                        name = arr[i].substring(0, num);
+                        value = encodeURIComponent(arr[i].substr(num + 1))
+                        _data[name] = value;
+                    }
+                }
+                console.log('str', _data);
+
+                return _data
+            }
+        }());
+
+        (function () {
+            var str = 'https://weixin.dingdingcaishi.com/?JSSESSION=QpUMIkleKrO/4LrVWokHnt48O5/2mO7azfu5OZPifyksOmgLecaonV43HR4k/jdvt2hXan9kkTN5yuLaWuUd5f69gSHZwVy/fMnWhfGfW0lCwtDAgcK4jkh9kZRVR1QsX1u5MlbSiMO+m0Ht7okpFmMFoTz2VhMSSTW9b+T9pPI=';
+
+            var str2 = 'https://weixin.dingdingcaishi.com/#/wechat/index/probe?code=011hIPTj2IaSOI0Ex1Uj2WLwTj2hIPTS&state=1';
+
+            var str3 = 'https://weixin.dingdingcaishi.com/#/home_page/shop?userid=e9f3b8d2-c29e-4023-9ad8-be20825b2950#/wechat/index/probe&JSSESSION=SJduBndFnpdPCmAdcmrUKf%20OYr3Gq4wjChP9GyHNfzG6E6uufJibJwGCXT1dxuOp1ONW6KHRFyEi4Zvcz7SUw1gfL2OQYHGlMMlghsU0RbzlBNo6ZeSWnrfEMLLxUr1IhkDisVXl0cdMSQ9WIzhECIB3lqgLgIlhrUTlYAA65Xo%3D';
+
+
+
+            function getHashStr(str) {
+                var result = '';
+                var replaceStr = ''
+                var hashInx = str.indexOf('#');
+                var hashOverA = str.indexOf("&", hashInx);
+                var hashOverW = str.indexOf("?", hashInx);
+
+                // hash在中间部分
+                // 都存在
+                if (hashOverA > 0 && hashOverW > 0) {
+                    // 取前面的
+                    if (hashOverA > hashOverW) {
+                        replaceStr = str.substring(hashInx, hashOverW);
+                    } else {
+                        replaceStr = str.substring(hashInx, hashOverA);
+                    }
+                } else if (hashOverA > 0) {
+                    replaceStr = str.substring(hashInx, hashOverA);
+                } else if (hashOverW > 0) {
+                    replaceStr = str.substring(hashInx, hashOverW);
+                }
+                // hash后面没有参数了
+                else if (hashOverA < 0 && hashOverW < 0) {
+                    replaceStr = str.substring(hashInx);
+                }
+
+                return replaceStr
+            }
+
+            function getArg(str) {
+                // 0.截取search部分
+                // 1.去掉hash部分
+                // 2.if1 去掉?
+                // 3.存入数组
+                // 4.转换成对象
+
+
+                var arr = [],
+                    result = {},
+                    _str = decodeURIComponent(str);
+
+                //0
+                var _arg = _str.indexOf('?');
+                _str = _str.substr(_arg + 1);
+
+                //1
+                var hashInx = _str.indexOf('#');
+                if (hashInx > 0) {
+                    var hashStr = getHashStr(_str);
+
+                    _str = _str.replace(hashStr, '');
+
+                }
+
+                //2
+                if (_str.indexOf('?') > 0) {
+                    _str = _str.replace('?', '&');
+                }
+
+                //3
+                arr = _str.split('&');
+
+                //4
+                for (var i = 0; i < arr.length; i++) {
+                    // todo： 出于性能考虑此处是否应该使用字符串进行切割
+
+                    var item = arr[i].split("=");
+
+                    result[item[0]] = item[1];
+                }
+
+                console.log(result)
+                console.log(result.JSSESSION + '=' == 'QpUMIkleKrO/4LrVWokHnt48O5/2mO7azfu5OZPifyksOmgLecaonV43HR4k/jdvt2hXan9kkTN5yuLaWuUd5f69gSHZwVy/fMnWhfGfW0lCwtDAgcK4jkh9kZRVR1QsX1u5MlbSiMO+m0Ht7okpFmMFoTz2VhMSSTW9b+T9pPI=')
+            }
+            // getArg(str);
+
+            function getUrlSearch(url) {
+                console.log('传入\n', url);
+                
+                // 0.截取search部分
+                // 1.去掉hash部分
+                // 2.if1 去掉?
+                // 3.存入数组
+                // 3.1 分别转码并替换空格为加号
+                // 4.转换成对象
+                
+
+                // 已经是参数的 = 会被转码，而search部分的 = 却不会被转码，除非手动调用enCodeURIComponent
+                const sInx = url.indexOf("?");
+                let str = url.substr(sInx + 1);
+                var hashInx = str.indexOf('#');
+                if (hashInx > 0) {
+                    var hashStr = getHashStr(str);
+
+                    str = str.replace(hashStr, '');
+
+                }
+                if (str.indexOf('?') > 0) {
+                    str = str.replace('?', '&');
+                }
+                let arr = str.split('&');
+                const replaceSpace = / /g;
+                let result = {};
+                for (var i = 0; i < arr.length; i++) {
+                    // todo： 出于性能考虑此处是否应该使用字符串进行切割
+                    var item = arr[i].split("=");
+                    let key = decodeURIComponent(item[0]);
+                    key = key.replace(replaceSpace,"+");
+                    let val = decodeURIComponent(item[1]);
+                    val = val.replace(replaceSpace,"+");
+                    result[key] = val;
+                }
+                return result;
+            }
+
+            getUrlSearch(str3);
+        })()
+    </script>
 </body>
+
 </html>

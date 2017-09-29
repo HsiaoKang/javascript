@@ -20,27 +20,26 @@ function* helloWorldGenerator() {
 
 var hw = helloWorldGenerator();
 
-hw.next()
-hw.next()
-hw.next()
-hw.next()
-hw.next()
-hw.next()
-hw.next()
+hw.next();
+hw.next();
+hw.next();
+hw.next();
+hw.next();
+hw.next();
+hw.next();
 
 
-
-//  不适用yield函数的话会使 Gennerator函数成为一个暂缓执行函数,待到调用.next()方法才会执行
+//  不使用yield函数的话会使 Gennerator函数成为一个暂缓执行函数,待到调用.next()方法才会执行
 
 function* xixi() {
     console.log('start')
 }
 
-var xx= xixi()
+var xx = xixi()
 
 setTimeout(function () {
     xx.next()
-},2000)
+}, 2000)
 
 
 // yield是一个表达式，如果用在其他表达式内，需要加上括号;用于赋值或者传参则不需要加括号
@@ -56,3 +55,40 @@ var demof = demo()
 
 demof.next()
 demof.next()
+
+// yield 在其他表达式中时
+// (function () {
+    var arr = [1, [[2, 3], 4], [5, 6]];
+
+    var flat = function* (a) {
+        //     var length = a.length;
+        //
+        //     var flat = function* (a) {
+        //         a.forEach(function (item) {
+        //             if (typeof item !== 'number') {
+        //                 yield* flat(item); // 报错
+        //             } else {
+        //                 yield item;
+        //             }
+        //         });
+        //     };
+        //
+        //     for (var f of flat(arr)) {
+        //         console.log('yield 在普通函数内',f);
+        //     }
+        //改为for 循环
+        var length = a.length;
+        for (var i = 0; i < length; i++) {
+            var item = a[i];
+            if (typeof item !== 'number') {
+                yield* flat(item);
+            } else {
+                yield item;
+            }
+        }
+    };
+
+    for (var f of flat(arr)) {
+        console.log(f);
+    }
+// }())
